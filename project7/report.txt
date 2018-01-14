@@ -1,0 +1,140 @@
+Project 7 Report
+Satvik Anand 
+404-823-011
+Discussion 1E
+
+a) The most notable obstacle I overcame in doing this project was in trying to program the relationship between the classes. I was making a mistake where the value of amount wouldn’t carry forward from the Bunco class to the Player class, which meant that the amount rolled would randomly correspond with the round in play. I corrected the problem when I realized that the results of the dice rolls were completely random (which was correct), but they weren’t synchronized with who was winning the round.
+
+b) 
+Player testPlayer;
+    // To test whether the function roll returns what it should and to see whether getScore increments correctly
+    assert(testPlayer.roll(5) == 5);
+    assert(testPlayer.getScore() == 0);
+    
+    // To test whether the function setRound sets the round appropriately and whether getScore increments correctly
+    testPlayer.setRound(3);
+    testPlayer.roll(3);
+    assert(testPlayer.getScore() == 1);
+    
+    
+    Bunco trial;
+    // To test whether ComputerPlay and humanPlay work appropriately
+    assert(trial.computerPlay(4) == 4);
+    assert(trial.humanPlay(3) == 3);
+    
+    // To test whether a trial round where the computer wins works correctly
+    trial.setRound(1);
+    trial.computerPlay(1);
+    trial.humanPlay(2);
+    assert(trial.computerPlay(1) == 1);
+    assert(trial.humanPlay(2) == 2);
+    // This assert tests all the functions of Board and BoardRow as well, along with checking whether determineRoundOutcome works appropriately
+    assert(trial.determineRoundOutcome() == Bunco::COMPUTERWON);
+    // To check whether determineGameOutcome works properly
+    assert(trial.determineGameOutcome() == Bunco::GAMENOTOVER);
+    
+    trial.setRound(2);
+    trial.computerPlay(2);
+    trial.humanPlay(2);
+    // To check whether when both the computer and human roll the same die, the game is still not decided
+    assert(trial.determineRoundOutcome() == Bunco::NOTDECIDED);
+    trial.computerPlay(2);
+    trial.humanPlay(3);
+    assert(trial.determineRoundOutcome() == Bunco::COMPUTERWON);
+    
+    trial.setRound(3);
+    trial.computerPlay(3);
+    trial.humanPlay(2);
+    assert(trial.determineRoundOutcome() == Bunco::COMPUTERWON);
+    
+    trial.setRound(4);
+    trial.computerPlay(4);
+    trial.humanPlay(2);
+    assert(trial.determineRoundOutcome() == Bunco::COMPUTERWON);
+    
+    trial.setRound(5);
+    trial.computerPlay(3);
+    trial.humanPlay(5);
+    assert(trial.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial.setRound(6);
+    trial.computerPlay(3);
+    trial.humanPlay(6);
+    assert(trial.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    // To check whether determineGameOutcome works appropriately
+    assert(trial.determineGameOutcome() == Bunco::COMPUTERWONGAME);
+
+    // To test whether a trial game in which the human wins works correctly
+    Bunco trial1;
+    
+    trial1.setRound(1);
+    trial1.computerPlay(2);
+    trial1.humanPlay(1);
+    assert(trial1.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial1.setRound(2);
+    trial1.computerPlay(2);
+    trial1.humanPlay(2);
+    assert(trial1.determineRoundOutcome() == Bunco::NOTDECIDED);
+    trial1.computerPlay(3);
+    trial1.humanPlay(2);
+    assert(trial1.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial1.setRound(3);
+    trial1.computerPlay(4);
+    trial1.humanPlay(3);
+    assert(trial1.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial1.setRound(4);
+    trial1.computerPlay(2);
+    trial1.humanPlay(4);
+    assert(trial1.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial1.setRound(5);
+    trial1.computerPlay(3);
+    trial1.humanPlay(5);
+    assert(trial1.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial1.setRound(6);
+    trial1.computerPlay(2);
+    trial1.humanPlay(6);
+    assert(trial1.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    assert(trial1.determineGameOutcome() == Bunco::HUMANWONGAME);
+    
+    // To check whether a game in which the computer and the human tie works correctly
+    Bunco trial2;
+    
+    trial2.setRound(1);
+    trial2.computerPlay(1);
+    trial2.humanPlay(2);
+    assert(trial2.determineRoundOutcome() == Bunco::COMPUTERWON);
+    
+    trial2.setRound(2);
+    trial2.computerPlay(3);
+    trial2.humanPlay(2);
+    assert(trial2.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial2.setRound(3);
+    trial2.computerPlay(3);
+    trial2.humanPlay(4);
+    assert(trial2.determineRoundOutcome() == Bunco::COMPUTERWON);
+    
+    trial2.setRound(4);
+    trial2.computerPlay(2);
+    trial2.humanPlay(4);
+    assert(trial2.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    trial2.setRound(5);
+    trial2.computerPlay(5);
+    trial2.humanPlay(3);
+    assert(trial2.determineRoundOutcome() == Bunco::COMPUTERWON);
+    
+    trial2.setRound(6);
+    trial2.computerPlay(2);
+    trial2.humanPlay(6);
+    assert(trial2.determineRoundOutcome() == Bunco::HUMANWON);
+    
+    assert(trial2.determineGameOutcome() == Bunco::TIEDGAME);
+    
